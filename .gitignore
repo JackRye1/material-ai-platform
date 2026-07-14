@@ -1,0 +1,18 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+*.egg-info/
+.pytest_cache/
+
+# アプリが生成するデータ(ダミーCSVはリポジトリに含める)
+data/material.db
+data/models/
+data/layouts/
+data/reports/
+data/settings.json
+
+# OS / IDE
+.DS_Store
+.idea/
+.vscode/
