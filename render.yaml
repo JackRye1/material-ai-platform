@@ -1,0 +1,16 @@
+# Render Blueprint — バックエンド (FastAPI) のデプロイ設定
+# Render の「New +」→「Blueprint」でこのリポジトリを選ぶと自動で構成される
+services:
+  - type: web
+    name: material-ai-api
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements-api.txt
+    startCommand: uvicorn api.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: APP_PASSCODE
+        sync: false # デプロイ時に Render の画面で入力する(合言葉)
+      - key: ALLOWED_ORIGINS
+        value: "*" # 合言葉で保護しているため全オリジン許可。絞る場合は Vercel の URL に変更
+      - key: PYTHON_VERSION
+        value: 3.11.9

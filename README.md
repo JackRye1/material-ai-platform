@@ -4,7 +4,9 @@
 ダミーデータのみを使用し、機密情報は一切含まない。
 
 - **デスクトップ版** (PySide6): フル機能。ダッシュボード・レイアウト保存・モデル管理
-- **Web版** (Streamlit): デモ用。ブラウザから利用可能(Streamlit Cloud にデプロイ)
+- **Web版** (Next.js + FastAPI): ブラウザ向け本格版。デスクトップ版と同じダークUI・
+  ウィジェットのドラッグ配置・レイアウト保存に対応(フロント=Vercel / API=Render)
+- **簡易Web版** (Streamlit): 最小構成のデモ(Streamlit Cloud 用、`streamlit_app.py`)
 
 ## デスクトップ版の起動
 
@@ -21,13 +23,27 @@ python scripts/generate_dummy_data.py              # ダミーデータ生成
 ## Web版の起動(ローカル)
 
 ```bash
-.venv/bin/pip install -r requirements.txt
-echo 'APP_PASSCODE = "任意の合言葉"' > .streamlit/secrets.toml
-.venv/bin/streamlit run streamlit_app.py
+# バックエンド (FastAPI)
+.venv/bin/pip install -r requirements-api.txt
+APP_PASSCODE=demo1234 .venv/bin/uvicorn api.main:app --port 8000
+
+# フロントエンド (Next.js) — 別ターミナルで
+cd web && npm install && npm run dev
+# → http://localhost:3000 を開き、合言葉 demo1234 で入室
 ```
 
-Streamlit Cloud へのデプロイ: リポジトリを選んで `streamlit_app.py` を指定し、
-App settings → Secrets に `APP_PASSCODE = "..."` を設定する(合言葉ゲート必須)。
+## Web版のデプロイ
+
+| 部分 | サービス | 設定 |
+|---|---|---|
+| バックエンド | Render (無料) | Blueprint で `render.yaml` を読み込み。`APP_PASSCODE` に合言葉を設定 |
+| フロントエンド | Vercel | Root Directory=`web`、環境変数 `NEXT_PUBLIC_API_URL`=Render の URL |
+
+- アクセスには合言葉が必要(バックエンドの `APP_PASSCODE` で検証)
+- データはセッション中のみ保持(2時間で自動破棄)。デモ用途でありデータ蓄積はしない
+- Render 無料プランはスリープするため、初回アクセスに30秒〜1分かかる場合あり
+
+(旧・簡易Web版: `streamlit_app.py`。Streamlit Cloud に Secrets `APP_PASSCODE` を設定して利用)
 
 - 推奨: Python 3.11+(3.9 でも動作)
 - **macOS(開発時)のみ**: XGBoost に OpenMP が必要。Homebrew があれば

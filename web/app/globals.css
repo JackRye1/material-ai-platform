@@ -1,0 +1,114 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #0d1420;
+  --panel: #111b2c;
+  --panel-2: #16223a;
+  --border: #223046;
+  --accent: #1d4ed8;
+  --accent-hi: #3b82f6;
+  --text: #d6deeb;
+  --muted: #7d8db0;
+  --good: #4ade80;
+  --bad: #f87171;
+}
+
+html,
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Hiragino Sans", "Yu Gothic UI", "Meiryo", system-ui, sans-serif;
+}
+
+/* 共通部品 */
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+.panel-title {
+  background: var(--panel-2);
+  color: #9fb3d9;
+  font-size: 12px;
+  padding: 7px 12px;
+  border-bottom: 1px solid var(--border);
+  border-radius: 10px 10px 0 0;
+  user-select: none;
+}
+.btn {
+  background: var(--accent);
+  color: #fff;
+  border-radius: 8px;
+  padding: 7px 16px;
+  font-size: 13px;
+  transition: background 0.15s;
+  cursor: pointer;
+}
+.btn:hover {
+  background: var(--accent-hi);
+}
+.btn:disabled {
+  background: #24304a;
+  color: #5b6884;
+  cursor: not-allowed;
+}
+.btn-ghost {
+  background: var(--panel-2);
+}
+.input,
+select.input {
+  background: #0f1828;
+  border: 1px solid #2a3a55;
+  border-radius: 8px;
+  padding: 6px 10px;
+  font-size: 13px;
+  color: var(--text);
+  outline: none;
+}
+.input:focus {
+  border-color: var(--accent-hi);
+}
+
+/* react-grid-layout */
+.react-grid-item.react-grid-placeholder {
+  background: var(--accent);
+  opacity: 0.25;
+  border-radius: 10px;
+}
+.react-grid-item > .react-resizable-handle::after {
+  border-color: var(--muted) !important;
+}
+
+/* テーブル */
+.data-table {
+  font-size: 12px;
+  border-collapse: collapse;
+  white-space: nowrap;
+}
+.data-table th {
+  background: var(--panel-2);
+  color: #9fb3d9;
+  padding: 6px 12px;
+  position: sticky;
+  top: 0;
+  text-align: left;
+}
+.data-table td {
+  padding: 5px 12px;
+  border-top: 1px solid #1e2c44;
+}
+.data-table tr:nth-child(even) td {
+  background: #121d30;
+}
+
+::-webkit-scrollbar {
+  width: 9px;
+  height: 9px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+::-webkit-scrollbar-thumb {
+  background: #2a3a55;
+  border-radius: 5px;
+}
