@@ -12,7 +12,13 @@ data/layouts/
 data/reports/
 data/settings.json
 
+# Streamlit(合言葉などの秘密情報はコミットしない)
+.streamlit/secrets.toml
+
 # OS / IDE
 .DS_Store
 .idea/
 .vscode/
+
+# Claude Code ローカル設定
+.claude/

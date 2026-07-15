@@ -1,5 +1,6 @@
-# Windows 展開時は Python 3.11+ を推奨(開発環境は 3.9 互換で実装)
-PySide6>=6.6
+# 共通コア + Web版(Streamlit Cloud はこのファイルを読む)
+# デスクトップ版の開発は requirements-desktop.txt を使うこと
+streamlit>=1.30
 pandas>=1.5
 numpy>=1.24
 scikit-learn>=1.3
@@ -7,4 +8,3 @@ xgboost>=1.7
 matplotlib>=3.7
 openpyxl>=3.1
 joblib>=1.3
-pytest>=7.0

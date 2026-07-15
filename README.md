@@ -1,19 +1,33 @@
 # Material AI Platform (MVP)
 
-材料開発における特性予測・データ解析を支援するオフライン・デスクトップアプリ。
+材料開発における特性予測・データ解析を支援するアプリ。
 ダミーデータのみを使用し、機密情報は一切含まない。
 
-## 起動方法
+- **デスクトップ版** (PySide6): フル機能。ダッシュボード・レイアウト保存・モデル管理
+- **Web版** (Streamlit): デモ用。ブラウザから利用可能(Streamlit Cloud にデプロイ)
+
+## デスクトップ版の起動
 
 ```bash
 # 初回のみ
 python -m venv .venv
-.venv/bin/pip install -r requirements.txt          # Windows: .venv\Scripts\pip
+.venv/bin/pip install -r requirements-desktop.txt  # Windows: .venv\Scripts\pip
 python scripts/generate_dummy_data.py              # ダミーデータ生成
 
 # 起動
 .venv/bin/python main.py                           # Windows: .venv\Scripts\python main.py
 ```
+
+## Web版の起動(ローカル)
+
+```bash
+.venv/bin/pip install -r requirements.txt
+echo 'APP_PASSCODE = "任意の合言葉"' > .streamlit/secrets.toml
+.venv/bin/streamlit run streamlit_app.py
+```
+
+Streamlit Cloud へのデプロイ: リポジトリを選んで `streamlit_app.py` を指定し、
+App settings → Secrets に `APP_PASSCODE = "..."` を設定する(合言葉ゲート必須)。
 
 - 推奨: Python 3.11+(3.9 でも動作)
 - **macOS(開発時)のみ**: XGBoost に OpenMP が必要。Homebrew があれば
